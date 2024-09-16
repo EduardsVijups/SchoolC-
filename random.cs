@@ -9,6 +9,7 @@ public class HelloWorld
     {
         int x = 1;
         int y = 1;
+        int score = 0;
         string[] m = {
             "##########",
             "#@       #",
@@ -39,7 +40,10 @@ public class HelloWorld
             
         }*/
         draw(m);
-        run(x, y);
+        Random rnd = new Random();
+        int randX = rnd.Next(1, 8);
+        int randY = rnd.Next(1, 5);
+        run(x, y, randX, randY, score);
     }
     public static void draw(string[] m)
     {
@@ -49,10 +53,14 @@ public class HelloWorld
             Console.WriteLine(m[i]);
         }
     }
-    public static void run(int a, int b)
+    
+    public static void run(int a, int b, int c, int d, int e)
     {
         int x = a;
         int y = b;
+        int randX = c;
+        int randY = d;
+        int score = e;
         string[] m = {
             "##########",
             "#        #",
@@ -92,6 +100,12 @@ public class HelloWorld
                 y = 5;
             }
         }
+        if (y == randY && x == randX) {
+            score += 1;
+            Random rnd = new Random();
+            randX = rnd.Next(1, 8);
+            randY = rnd.Next(1, 5);
+        }
         for (int i = 0; i < m.Length; i++)
         {
             if (i == y){
@@ -101,11 +115,21 @@ public class HelloWorld
                 var result = new string(pp);
                 m[i] = result;
                 
-                draw(m);
+            }
+            if (i == randY){
+                var pp = m[i].ToCharArray();
+                pp[randX] = 'X';
+
+                var result = new string(pp);
+                m[i] = result;
+                
                 
             }
+        
             
         }
-        run(x, y);
+        draw(m);
+        Console.WriteLine("Score = "+score);
+        run(x, y, randX, randY, score);
     }
 }
