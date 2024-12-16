@@ -1,4 +1,3 @@
-// Tesla Rental Backend in C#
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -175,7 +174,6 @@ namespace TeslaRental
             {
                 connection.Open();
 
-                // Fetch rental details
                 var rentalQuery = "SELECT Rentals.CarID, Rentals.StartTime, Cars.HourlyRate, Cars.PerKmRate " +
                                   "FROM Rentals JOIN Cars ON Rentals.CarID = Cars.ID WHERE Rentals.ID = @rentalId";
 
@@ -195,7 +193,6 @@ namespace TeslaRental
                             var rentalDuration = (endTime - startTime).TotalHours;
                             var totalAmount = (decimal)rentalDuration * hourlyRate + (decimal)kilometersDriven * perKmRate;
 
-                            // Update rental
                             var updateQuery = "UPDATE Rentals SET EndTime = @endTime, KilometersDriven = @kilometersDriven, TotalAmount = @totalAmount WHERE ID = @rentalId";
 
                             using (var updateCommand = new SQLiteCommand(updateQuery, connection))
